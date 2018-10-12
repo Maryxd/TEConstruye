@@ -1,40 +1,107 @@
 create database TEConstruye
+USE TEConstruye
 
-CREATE TABLE EMPLEADOS(
-Nombre VARCHAR(50),
-Cedula VARCHAR(50),
-Telefono VARCHAR (50),
-Pago_Hora INT,
-Apellido1 VARCHAR (50),
-Apellido2 VARCHAR (50),
+CREATE TABLE Empleados(
+Nombre VARCHAR(50) NOT NULL,
+Apellido1 VARCHAR (50) NOT NULL,
+Apellido2 VARCHAR (50) NOT NULL,
+Cedula INT NOT NULL,
+Telefono VARCHAR (50) NOT NULL,
+Pago_Hora INT NOT NULL,
+PRIMARY KEY (Cedula)
 )
 
-CREATE TABLE INGENIEROS(
-Especialidad VARCHAR (50),
-Codigo INT,
-ID_Empleado INT,
+CREATE TABLE Ingenieros(
+Especialidad VARCHAR (50) NOT NULL,
+Codigo INT NOT NULL,
+ID_Empleado INT NOT NULL,
+PRIMARY KEY (Codigo),
+FOREIGN KEY (ID_Empleado) REFERENCES Empleados(Cedula)
 )
 
-CREATE TABLE CLIENTES (
-Nombre VARCHAR (50),
-Cedula VARCHAR (50),
-Telefono VARCHAR (50),
+CREATE TABLE Clientes (
+Nombre VARCHAR (50) NOT NULL,
+Cedula VARCHAR (50) NOT NULL,
+Telefono VARCHAR (50) NOT NULL,
 PRIMARY KEY (Cedula),
 )
 
-CREATE TABLE MATERIALES (
+CREATE TABLE Materiales (
 Nombre_Material VARCHAR (50),
 Codigo VARCHAR (50),
 PrecioUnitario  INT,
-
+PRIMARY KEY (Codigo)
 )
 
-CREATE TABLE OBRA (
-Ubicacion VARCHAR (50),
+CREATE TABLE Obra (
+Ubicacion VARCHAR (50) NOT NULL,
 Presupuesto_Final FLOAT,
-ID INT,
-ID_Cliente VARCHAR (50),
+ID INT NOT NULL,
+ID_Cliente VARCHAR (50) NOT NULL,
 PRIMARY KEY (ID),
+FOREIGN KEY (ID_Cliente) REFERENCES Clientes(Cedula)
 )
+
+CREATE TABLE Etapa(
+IDEtap int NOT NULL,
+Nombre VARCHAR(50) NOT NULL
+PRIMARY KEY (IDEtap)
+)
+
+
+CREATE TABLE EtapaXObra(
+ID INT NOT NULL,
+ID_Obra INT NOT NULL,
+ID_Etapa INT NOT NULL,
+Fecha_Inicio DATETIME NOT NULL,
+Fecha_Fin DATETIME NOT NULL,
+PRIMARY KEY (ID),
+FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
+FOREIGN KEY (ID_Etapa) REFERENCES Etapa(IDEtap)
+)
+
+CREATE TABLE MaterialXEtapa(
+ID_ME INT NOT NULL,
+ID_Material VARCHAR(50) NOT NULL,
+ID_Etapa INT NOT NULL,
+Cantidad INT NOT NULL,
+Precio INT NOT NULL,
+Primary KEY (ID_ME),
+FOREIGN KEY (ID_Material) REFERENCES Materiales(Codigo),
+FOREIGN KEY (ID_Etapa) REFERENCES EtapaXObra(ID)
+)
+
+
+CREATE TABLE WORKS_ON(
+ID_Empleado INT NOT NULL,
+ID_Obra INT NOT NULL,
+HorasXSemana FLOAT NOT NULL,
+Semana INT NOT NULL,
+FOREIGN KEY (ID_Empleado) REFERENCES Empleados(Cedula),
+FOREIGN KEY (ID_Obra) REFERENCES Obra(ID)
+
+)
+
+CREATE TABLE Presupuesto(
+ID_MatXEtapa INT NOT NULL,
+ID_Obra INT NOT NULL,
+Mano_de_Obra INT NOT NULL,
+Total INT,
+FOREIGN KEY (ID_MatXEtapa) REFERENCES MaterialXEtapa(ID_ME),
+FOREIGN KEY (ID_Obra) REFERENCES Obra(ID)
+)
+
+CREATE TABLE Gastos(
+Numero_Factura INT NOT NULL,
+ID_Obra INT NOT NULL,
+ID_Etapa INT NOT NULL,
+Lugar VARCHAR(50) NOT NULL,
+Fecha DATETIME NOT NULL,
+Semana INT NOT NULL,
+Monto INT NOT NULL,
+FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
+FOREIGN KEY (ID_Etapa) REFERENCES EtapaXObra(ID)
+)
+
 
 
