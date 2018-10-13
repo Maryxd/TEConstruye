@@ -33,17 +33,21 @@ PrecioUnitario  INT,
 PRIMARY KEY (Codigo)
 )
 
+
 CREATE TABLE Obra (
-Ubicacion VARCHAR (50) NOT NULL,
-Presupuesto_Final FLOAT,
 ID INT NOT NULL,
 ID_Cliente VARCHAR (50) NOT NULL,
+Ubicacion VARCHAR (50) NOT NULL,
+Costo_Mano_de_Obra INT default 0,
+Total_Materiales INT default 0,
+Presupuesto_Final as Costo_Mano_de_Obra+Total_Materiales,
+
 PRIMARY KEY (ID),
 FOREIGN KEY (ID_Cliente) REFERENCES Clientes(Cedula)
 )
 
 CREATE TABLE Etapa(
-IDEtap int NOT NULL,
+IDEtap int identity(1,1),
 Nombre VARCHAR(50) NOT NULL
 PRIMARY KEY (IDEtap)
 )
@@ -55,6 +59,7 @@ ID_Obra INT NOT NULL,
 ID_Etapa INT NOT NULL,
 Fecha_Inicio DATETIME NOT NULL,
 Fecha_Fin DATETIME NOT NULL,
+Total INT,
 PRIMARY KEY (ID),
 FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
 FOREIGN KEY (ID_Etapa) REFERENCES Etapa(IDEtap)
@@ -63,13 +68,15 @@ FOREIGN KEY (ID_Etapa) REFERENCES Etapa(IDEtap)
 CREATE TABLE MaterialXEtapa(
 ID_ME INT NOT NULL,
 ID_Material VARCHAR(50) NOT NULL,
-ID_Etapa INT NOT NULL,
+ID_EtapaxObra INT NOT NULL,
 Cantidad INT NOT NULL,
 Precio INT NOT NULL,
+TotalMAT as Cantidad*Precio,
 Primary KEY (ID_ME),
 FOREIGN KEY (ID_Material) REFERENCES Materiales(Codigo),
-FOREIGN KEY (ID_Etapa) REFERENCES EtapaXObra(ID)
+FOREIGN KEY (ID_EtapaxObra) REFERENCES EtapaXObra(ID)
 )
+
 
 
 CREATE TABLE WORKS_ON(
@@ -82,14 +89,7 @@ FOREIGN KEY (ID_Obra) REFERENCES Obra(ID)
 
 )
 
-CREATE TABLE Presupuesto(
-ID_MatXEtapa INT NOT NULL,
-ID_Obra INT NOT NULL,
-Mano_de_Obra INT NOT NULL,
-Total INT,
-FOREIGN KEY (ID_MatXEtapa) REFERENCES MaterialXEtapa(ID_ME),
-FOREIGN KEY (ID_Obra) REFERENCES Obra(ID)
-)
+
 
 CREATE TABLE Gastos(
 Numero_Factura INT NOT NULL,
@@ -104,4 +104,34 @@ FOREIGN KEY (ID_Etapa) REFERENCES EtapaXObra(ID)
 )
 
 
+CREATE TRIGGER ActualizarPresupuestoporEtapa
+	ON MaterialXEtapa
+	AFTER INSERT
+		AS
+		declare @var int
+		select @var=ID_EtapaxObra from inserted
+		BEGIN
+		UPDATE EtapaXObra
+		Set Total=(SELECT sum(TotalMAT) FROM MaterialXEtapa where ID_EtapaxObra=@var)
+		Where ID=@var
+		END
+
+CREATE TRIGGER ActualizarPresupuestoxObra
+	ON MaterialXEtapa
+	AFTER INSERT
+	AS
+	declare @var2 int
+	declare @var3 int
+	select @var2=ID_EtapaxObra from inserted
+	select @var3=ID_Obra FROM (MaterialXEtapa INNER JOIN EtapaXObra ON ID_EtapaxObra=ID) WHERE ID=@var2
+	BEGIN
+	UPDATE Obra
+	Set Total_Materiales=(SELECT sum(TotalMAT) FROM (MaterialXEtapa INNER JOIN EtapaXObra ON ID_EtapaxObra=ID) where ID_Obra=@var3)
+	where ID=@var3
+	END
+
+
+DROP TRIGGER ActualizarPresupuestoporObra
+DROP TRIGGER ActualizarPresupuestoporEtapa
+SELECT * FROM MaterialXEtapa
 
