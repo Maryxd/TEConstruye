@@ -135,3 +135,41 @@ DROP TRIGGER ActualizarPresupuestoporObra
 DROP TRIGGER ActualizarPresupuestoporEtapa
 SELECT * FROM MaterialXEtapa
 
+CREATE PROCEDURE Presupuesto  @IDObra INT
+	AS
+	SELECT Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON IDEtap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	WHERE ID_Obra=@IDObra
+	Group by Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
+	GO
+	
+CREATE PROCEDURE Planilla @semana INT
+	AS
+	SELECT  Nombre, Apellido1, Apellido2, ID as ID_Obra, Ubicacion, SUM(HorasXSemana*Pago_Hora) as Sueldo
+	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
+	Where Semana=@semana
+	Group by Nombre, Apellido1, Apellido2, ID, Ubicacion
+	GO
+
+CREATE PROCEDURE Gasto @semana INT, @IDObra INT
+	AS
+	SELECT Numero_Factura,Lugar,Fecha, Nombre as Etapa, Monto
+	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=IDEtap
+	WHERE Semana=@semana AND Gastos.ID_Obra=@IDObra
+	GO
+
+
+CREATE PROCEDURE Reporte_de_Estado @IDObra INT
+	AS
+	SELECT Nombre as Etapa,Total as Presupuesto,SUM(Monto) as Real,Total-SUM(Monto) as Diferencia
+	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=IDEtap
+	Where Gastos.ID_Obra=123
+	GROUP BY Nombre,Total,Monto
+	GO
+
+
+EXEC Planilla 1;
+EXEC Presupuesto 123;
+
+	SELECT * FROM EtapaXObra
+	SELECT * FROM MaterialXEtapa

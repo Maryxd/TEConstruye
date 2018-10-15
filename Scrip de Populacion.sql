@@ -2,7 +2,9 @@ USE TEConstruye
 
 INSERT INTO Empleados
 VALUES
-('Paolo','López','Díaz',12345678,22769696,800)
+('Paolo','López','Díaz',12345678,22769696,800),
+('Marcelo','Torres','Montes',333567424,87865798,600)
+
 
 INSERT INTO Ingenieros
 VALUES
@@ -103,7 +105,9 @@ VALUES
 ('Vigas de concreto',8749576,155379),
 ('Apagador No52',9868426,870),
 ('Apagador No54 Doble',3457854,950),
-('Arena',6759375,16990)
+('Arena',6759375,16990),
+('BALDOSA PREFA 1,95X50MT',56646576,6080),
+('BALDOSA PREFA 0,75X0,5MT',95686864,2486)
 
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
@@ -117,6 +121,27 @@ VALUES
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
 (3,12,46,3,100)
+
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(4,1,46,3,100)
+
+
+Insert into WORKS_ON
+VALUES
+(12345678,123,50,1),
+(12345678,133,50,1),
+(12345678,133,50,1),
+(12345678,123,50,1),
+(333567424,123,50,1),
+(333567424,123,10,1),
+(333567424,133,4,1)
+
+INSERT INTO Gastos
+VALUES
+(12,123,46,'Epa','2018-07-07',1,2000)
+
 
 SELECT * FROM MaterialXEtapa
 DELETE MaterialXEtapa
