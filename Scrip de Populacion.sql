@@ -109,7 +109,7 @@ VALUES
 ('Grifo cocina 8 Classic Cuello Alto',2517038,20500),
 ('Fregadero 1 tanque acero 201',2526169,13950),
 ('Fregadero 1 tanque acero 304',2526117,27950),
-('Kit de Conica Napoles Blanco',2511042,99950),
+('Kit de Cocic¿na Napoles Blanco',2511042,99950),
 ('2 plafones niquel satinado luz',1510288,12950),
 ('2 plafones modernos cafe 12x26cm',1510282,11950),
 ('Ventilador 6 aspas 1 luz bronce',1548266,37950),
@@ -135,7 +135,7 @@ VALUES
 ('Pintura 3en1 Seal Coat 1gal',281006,14500),
 ('Pintura latex Goltex 1gal',267008,17950),
 ('Pomo esfera bronce sin llave',1924100,3350),
-('Lamina de Fibrolit 22mm 122x244cm',40500),
+('Lamina de Fibrolit 22mm 122x244cm',1333698,40500),
 ('Mueble base para lavaplatos blanco',2510039,56950),
 ('Kit para cocina Palace color blanco y wengue',2511040,135000),
 ('Mueble aéreo 2 puertas blanco',2510037,48500),
@@ -145,12 +145,12 @@ VALUES
 ('Vigas de concreto',8749576,155379),
 ('Apagador No52',9868426,870),
 ('Apagador No54 Doble',3457854,950),
-('Arena',6759375,16990),
+('Arena 1 Kg',6759375,16990),
 ('BALDOSA PREFA 1,95X50MT',56646576,6080),
 ('BALDOSA PREFA 0,75X0,5MT',95686864,2486),
 ('BLOQUE CONCRETO 20X20X40CMS',648573648,487),
-('BREACKER 1X040AMP',34532124,3624),
-('BREACKER 1X015AMP',34532324,2932),
+('BREAKER 1X040AMP',34532124,3624),
+('BREAKER 1X015AMP',34532324,2932),
 ('CABLE THHN/THW NGM.14 1M',88886848,239),
 ('CABLE TW/THW NO8 1M',88885645,310),
 ('CANALETA ESTRUCTURAL 0,74X4,57 NO26',45635467,6267),
@@ -186,20 +186,60 @@ VALUES
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(2,12,45,3,100)
+(2,12,3,1000,100)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(1,12,46,3,100)
+(1,2443049,2,2,99950)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(3,12,46,3,100)
+(3,66570901,2,2,56972)
 
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(4,1,46,3,100)
+(4,99989898,3,2,2922)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(5,76656466,3,150,1219)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(6,36454637,4,8,2339)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(7,1333698,3,18,100)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(8,90878611,5,34,564)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(9,8749576,5,17,155379)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(10,74646574,4,12,786)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(12,648573648,5,78,487)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(11,6759375,3,13,16990)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(13,2420107,2,1,34950)
+
+Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
+VALUES
+(13,77756777,5,9,4331)
 
 
 Insert into WORKS_ON
@@ -215,6 +255,7 @@ VALUES
 (698752143,10,27,1),
 (800789246,11,36,1),
 (698752143,60,55,1)
+
 INSERT INTO Gastos
 VALUES
 (12,60,46,'Epa','2018-07-07',1,20000)
