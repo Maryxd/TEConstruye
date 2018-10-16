@@ -269,14 +269,4 @@ VALUES
 (12,10,46,'El Lagar','2018-10-16',1,2900)
 (12,61,46,'Materiales La Juana','2018-10-21',1,9500)
 
-SELECT * FROM MaterialXEtapa
-DELETE MaterialXEtapa
-DELETE EtapaXObra
-DELETE Presupuesto
 
-
-SELECT * FROM Obra
-
-UPDATE Obra
-Set Costo_Mano_de_Obra=900
-Where ID=123
