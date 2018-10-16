@@ -2,7 +2,7 @@ USE TEConstruye
 
 INSERT INTO Empleados
 VALUES
-('Paolo','López','Díaz',12345678,22769696,800),
+('Marco','Banderas','Díaz',12345678,22769696,800),
 ('Marcelo','Torres','Montes',333567424,87865798,600)
 ('Marielos','Gutiérrez,'Cháves',465780512,22755805,400)
 ('Francisco,'Palma','Solano',200586456,22304569,350)
