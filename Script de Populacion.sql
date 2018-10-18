@@ -186,11 +186,11 @@ VALUES
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(2,12,11000,100)
+(1,12,11000,100)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(1,2443049,2,2,99950)
+(2,2443049,2,2,99950)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
@@ -239,7 +239,7 @@ VALUES
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(13,77756777,2,9,4331)
+(15,77756777,2,9,4331)
 
 
 Insert into WORKS_ON
