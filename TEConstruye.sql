@@ -172,7 +172,7 @@ CREATE PROCEDURE Reporte_de_Estado @IDObra INT
 
 EXEC Planilla 1;
 EXEC Presupuesto 630;
-EXEC Reporte_de_Estado 630;
+EXEC Reporte_de_Estado 630;   
 
 SELECT * FROM Gastos
 

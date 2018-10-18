@@ -1,0 +1,10 @@
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.csprojAssemblyReference.cache
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.Properties.Resources.resources
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.csproj.GenerateResource.cache
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\bin\Debug\TEConstruye.exe.config
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\bin\Debug\TEConstruye.exe
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\bin\Debug\TEConstruye.pdb
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.exe
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.pdb
+C:\Users\usuario\Desktop\TEConstruye\TEConstruye\obj\Debug\TEConstruye.TEConstruye.resources
