@@ -2,38 +2,38 @@ USE TEConstruye
 
 INSERT INTO Empleados
 VALUES
-('Marco','Banderas','Díaz',12345678,22769696,800),
-('Marcelo','Torres','Montes',333567424,87865798,600)
-('Marielos','Gutiérrez,'Cháves',465780512,22755805,400)
-('Francisco,'Palma','Solano',200586456,22304569,350)
-('Carmen','Aguilar','Fernández',200696412,25758978,800)
-('Isabela','Céspedes','Córdoba',400568741,60025898,650)
-('Gianluca','Auditore','Di Marzio',800789246,83267224,750)
-('Marcos','Torreira','Suárez',104762210,24619874,1000)
-('Andrés','Balmaceda','Duarte',574156911,22456987,1500)
-('Gustavo','Castro','Zúñiga',698752143,24587410,900)
-('Alonso','Martínez','Víctor',457896254,22301245,750)
-('Fernanda','Gómez','González',104567845,26523145,775)
-('Javier','Pérez','Rodríguez',210456721,60456321,500)
-('Clara','Centeno','Aguero',356478961,83456987,450)
+('Paolo','López','Díaz',12345678,22769696,800),
+('Marcelo','Torres','Montes',333567424,87865798,600),
+('Marielos','Gutiérrez','Cháves',465780512,22755805,400),
+('Francisco','Palma','Solano',200586456,22304569,350),
+('Carmen','Aguilar','Fernández',200696412,25758978,800),
+('Isabela','Céspedes','Córdoba',400568741,60025898,650),
+('Gianluca','Auditore','Di Marzio',800789246,83267224,750),
+('Marcos','Torreira','Suárez',104762210,24619874,1000),
+('Andrés','Balmaceda','Duarte',574156911,22456987,1500),
+('Gustavo','Castro','Zúñiga',698752143,24587410,900),
+('Alonso','Martínez','Víctor',457896254,22301245,750),
+('Fernanda','Gómez','González',104567845,26523145,775),
+('Javier','Pérez','Rodríguez',210456721,60456321,500),
+('Clara','Centeno','Aguero',356478961,83456987,450),
 ('María','Aguirre','Hurtado',452368974,70125896,335)
 
 INSERT INTO Ingenieros
 VALUES
-('Arquitecto',98990,12345678)
-('Ing. Eléctrico',45612,333567424)
-('Ing. Civil',34789,465780512)
-('Arquitecto',60000,200586456)
-('Ing. Eléctrico',14578,200696412)
-('Ing. Civil',20453,400568741)
-('Arquitecto',97541,800789246)
-('Ing. Eléctrico',12589,104762210)
-('Ing. Civil',74523,574156911)
-('Arquitecto',68452,698752143)
-('Ing. Eléctrico',15986,457896254)
-('Ing. Civil',20565,104567845)
-('Arquitecto',97770,210456721)
-('Ing. Eléctrico',47015,356478961)
+('Arquitecto',98990,12345678),
+('Ing. Eléctrico',45612,333567424),
+('Ing. Civil',34789,465780512),
+('Arquitecto',60000,200586456),
+('Ing. Eléctrico',14578,200696412),
+('Ing. Civil',20453,400568741),
+('Arquitecto',97541,800789246),
+('Ing. Eléctrico',12589,104762210),
+('Ing. Civil',74523,574156911),
+('Arquitecto',68452,698752143),
+('Ing. Eléctrico',15986,457896254),
+('Ing. Civil',20565,104567845),
+('Arquitecto',97770,210456721),
+('Ing. Eléctrico',47015,356478961),
 ('Ing. Civil',56214,452368974)
 
 INSERT INTO Etapa(Nombre)
@@ -61,10 +61,10 @@ VALUES
 
 INSERT INTO Clientes
 VALUES
-('Willian',107230078,22748974)
-('Juliana',105430010,22304569)
-('Rodolfo',104578045,25704520)
-('Andrea',102500999,83185698)
+('Willian',107230078,22748974),
+('Juliana',105430010,22304569),
+('Rodolfo',104578045,25704520),
+('Andrea',102500999,83185698),
 ('Omar',176520915,89954102)
 INSERT INTO Obra(ID,ID_Cliente,Ubicacion)
 VALUES
@@ -88,14 +88,14 @@ VALUES
 
 INSERT INTO EtapaXObra(ID,ID_Obra,ID_Etapa,Fecha_Inicio,Fecha_Fin)
 VALUES
-(60,630,1,'2018-10-15','2018-10-17'),
-(61,630,2,'2018-10-16','2018-10-20'),
-(62,630,3,'2018-10-21','2018-10-26'),
-(63,658,1,'2018-11-27','2018-11-30'),
+(60,630,1,'2018-15-10','2018-17-10'),
+(61,630,2,'2018-16-10','2018-20-10'),
+(62,630,3,'2018-21-10','2018-10-10'),
+(63,658,1,'2018-27-11','2018-30-11'),
 (64,658,2,'2018-12-01','2018-12-09'),
 (54,547,1,'2018-10-01','2018-10-05'),
-(10,139,1,'2018-08-30','2018-09-04'),
-(11,139,2,'2018-09-07','2018-09-13'),
+(10,139,1,'2018-08-08','2018-09-04'),
+(11,139,2,'2018-09-07','2018-13-09'),
 (26,226,1,'2018-11-01','2018-11-05'),
 (27,226,2,'2018-11-07','2018-11-10')
 
@@ -114,7 +114,7 @@ VALUES
 ('2 plafones modernos cafe 12x26cm',1510282,11950),
 ('Ventilador 6 aspas 1 luz bronce',1548266,37950),
 ('Set 6 piezas cromo galicia baño',2450088,19950),
-('Lavamanos de colgar Valino bone'2439421,11950),
+('Lavamanos de colgar Valino bone',2439421,11950),
 ('Grifo lavamanos bajo',2432067,19950),
 ('Grifo lavamanos alto',2432076,29950),
 ('Mueble de baño + lavamanos',2460082,79950),
@@ -258,15 +258,15 @@ VALUES
 
 INSERT INTO Gastos
 VALUES
-(12,60,46,'Epa','2018-07-07',1,20000)
-(12,54,46,'Walmart','2018-12-01',1,500000)
-(12,10,46,'Ferconce','2018-09-05',1,67000)
-(12,61,46,'Ferretería Jiménez','2018-10-15',1,35000)
-(12,26,46,'Fausto Jara','2018-12-01',1,402000)
-(12,10,46,'El Lagar','2018-10-17',1,28900)
-(12,60,46,'Materiales La Juana','2018-10-20',1,90500)
-(12,60,46,'Fausto Jara','2018-12-01',1,44000)
-(12,10,46,'El Lagar','2018-10-16',1,2900)
+(12,60,46,'Epa','2018-07-07',1,20000),
+(12,54,46,'Walmart','2018-12-01',1,500000),
+(12,10,46,'Ferconce','2018-09-05',1,67000),
+(12,61,46,'Ferretería Jiménez','2018-10-15',1,35000),
+(12,26,46,'Fausto Jara','2018-12-01',1,402000),
+(12,10,46,'El Lagar','2018-10-17',1,28900),
+(12,60,46,'Materiales La Juana','2018-10-20',1,90500),
+(12,60,46,'Fausto Jara','2018-12-01',1,44000),
+(12,10,46,'El Lagar','2018-10-16',1,2900),
 (12,61,46,'Materiales La Juana','2018-10-21',1,9500)
 
 
