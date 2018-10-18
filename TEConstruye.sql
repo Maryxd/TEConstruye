@@ -1,4 +1,5 @@
 create database TEConstruye
+GO
 USE TEConstruye
 
 CREATE TABLE Empleados(
@@ -103,7 +104,7 @@ FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
 FOREIGN KEY (ID_Etapa) REFERENCES EtapaXObra(ID)
 )
 
-
+GO
 CREATE TRIGGER ActualizarPresupuestoporEtapa
 	ON MaterialXEtapa
 	AFTER INSERT
@@ -116,6 +117,7 @@ CREATE TRIGGER ActualizarPresupuestoporEtapa
 		Where ID=@var
 		END
 
+GO
 CREATE TRIGGER ActualizarPresupuestoxObra
 	ON MaterialXEtapa
 	AFTER INSERT
@@ -131,10 +133,10 @@ CREATE TRIGGER ActualizarPresupuestoxObra
 	END
 
 
-DROP TRIGGER ActualizarPresupuestoporObra
+/*DROP TRIGGER ActualizarPresupuestoporObra
 DROP TRIGGER ActualizarPresupuestoporEtapa
-SELECT * FROM MaterialXEtapa
-
+SELECT * FROM MaterialXEtapa*/
+GO
 CREATE PROCEDURE Presupuesto  @IDObra INT
 	AS
 	SELECT Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
