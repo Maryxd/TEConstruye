@@ -39,10 +39,6 @@ CREATE TABLE Obra (
 ID INT NOT NULL,
 ID_Cliente VARCHAR (50) NOT NULL,
 Ubicacion VARCHAR (50) NOT NULL,
-Costo_Mano_de_Obra INT default 0,
-Total_Materiales INT default 0,
-Presupuesto_Final as Costo_Mano_de_Obra+Total_Materiales,
-
 PRIMARY KEY (ID),
 FOREIGN KEY (ID_Cliente) REFERENCES Clientes(Cedula)
 )
@@ -60,7 +56,6 @@ ID_Obra INT NOT NULL,
 ID_Etapa INT NOT NULL,
 Fecha_Inicio DATETIME NOT NULL,
 Fecha_Fin DATETIME NOT NULL,
-Total INT,
 PRIMARY KEY (ID),
 FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
 FOREIGN KEY (ID_Etapa) REFERENCES Etapa(IDEtap)
@@ -104,7 +99,7 @@ FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
 FOREIGN KEY (ID_Etapa) REFERENCES EtapaXObra(ID)
 )
 
-GO
+/*GO
 CREATE TRIGGER ActualizarPresupuestoporEtapa
 	ON MaterialXEtapa
 	AFTER INSERT
@@ -130,7 +125,7 @@ CREATE TRIGGER ActualizarPresupuestoxObra
 	UPDATE Obra
 	Set Total_Materiales=(SELECT sum(TotalMAT) FROM (MaterialXEtapa INNER JOIN EtapaXObra ON ID_EtapaxObra=ID) where ID_Obra=@var3)
 	where ID=@var3
-	END
+	END*/
 
 
 /*DROP TRIGGER ActualizarPresupuestoporObra
@@ -163,15 +158,23 @@ CREATE PROCEDURE Gasto @semana INT, @IDObra INT
 
 CREATE PROCEDURE Reporte_de_Estado @IDObra INT
 	AS
-	SELECT Nombre as Etapa,Total as Presupuesto,SUM(Monto) as Real,Total-SUM(Monto) as Diferencia
+	declare @presupuesto int
+	Select @presupuesto=SUM(TotalMAT)
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON IDEtap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	WHERE ID_Obra=@IDObra
+
+	SELECT Nombre as Etapa,@presupuesto as Presupuesto,SUM(Monto) as Real,@presupuesto-SUM(Monto) as Diferencia
 	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=IDEtap
-	Where Gastos.ID_Obra=123
-	GROUP BY Nombre,Total,Monto
+	Where Gastos.ID_Obra=630
+	GROUP BY Nombre
 	GO
 
 
 EXEC Planilla 1;
-EXEC Presupuesto 123;
+EXEC Presupuesto 630;
+EXEC Reporte_de_Estado 630;
+
+SELECT * FROM Gastos
 
 	SELECT * FROM EtapaXObra
 	SELECT * FROM MaterialXEtapa
