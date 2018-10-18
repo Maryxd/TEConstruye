@@ -186,60 +186,60 @@ VALUES
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(1,12,11000,100)
+(1,12,60,11000,100)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(2,2443049,2,2,99950)
+(2,2443049,61,2,99950)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(3,66570901,2,2,56972)
+(3,66570901,61,2,56972)
 
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(4,99989898,2,2,2922)
+(4,99989898,61,2,2922)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(5,76656466,3,150,1219)
+(5,76656466,64,150,1219)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(6,36454637,2,8,2339)
+(6,36454637,61,8,2339)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(7,1333698,2,18,100)
+(7,1333698,27,18,100)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(8,90878611,1,34,564)
+(8,90878611,60,34,564)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(9,8749576,1,17,155379)
+(9,8749576,60,17,155379)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(10,74646574,3,12,786)
+(10,74646574,64,12,786)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(12,648573648,2,78,487)
+(12,648573648,61,78,487)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(11,6759375,1,13,16990)
+(11,6759375,11,13,16990)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(13,2420107,1,1,34950)
+(13,2420107,54,1,34950)
 
 Insert into MaterialXEtapa(ID_ME,ID_Material,ID_EtapaxObra,Cantidad,Precio)
 VALUES
-(15,77756777,2,9,4331)
+(15,77756777,27,9,4331)
 
 
 Insert into WORKS_ON
