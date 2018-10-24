@@ -116,11 +116,8 @@ GO
 CREATE PROCEDURE USP_Presupuesto  @IDObra INT
 	AS
 	SELECT Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
-<<<<<<< HEAD
+
 	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
-=======
-	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON IDEtap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
->>>>>>> origin/master
 	WHERE ID_Obra=@IDObra
 	Group by Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
 
@@ -153,11 +150,7 @@ CREATE PROCEDURE USP_Planilla @semana INT
 CREATE PROCEDURE USP_Gasto @semana INT, @IDObra INT
 	AS
 	SELECT Numero_Factura,Lugar,Fecha, Nombre as Etapa, Monto
-<<<<<<< HEAD
 	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=ID_Etap
-=======
-	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=IDEtap
->>>>>>> origin/master
 	WHERE Semana=@semana AND Gastos.ID_Obra=@IDObra
 	GO
 
@@ -166,20 +159,13 @@ CREATE PROCEDURE USP_Reporte_de_Estado @IDObra INT
 	AS
 	declare @presupuesto int
 	Select @presupuesto=SUM(TotalMAT)
-<<<<<<< HEAD
 	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
 	WHERE ID_Obra=@IDObra
 
 	SELECT Nombre as Etapa,@presupuesto as Presupuesto,SUM(Monto) as Real,@presupuesto-SUM(Monto) as Diferencia
 	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=ID_Etap
-=======
-	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON IDEtap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
-	WHERE ID_Obra=@IDObra
-
-	SELECT Nombre as Etapa,@presupuesto as Presupuesto,SUM(Monto) as Real,@presupuesto-SUM(Monto) as Diferencia
-	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=IDEtap
->>>>>>> origin/master
 	Where Gastos.ID_Obra=630
+
 	GROUP BY Nombre
 	GO
 
@@ -223,5 +209,6 @@ GO
 EXEC USP_Planilla 1;
 EXEC USP_Presupuesto 630;
 EXEC USP_Reporte_de_Estado 630;
+EXEC USP_Gasto 1,630;
 
 ----------------------------------------------------------ÚLTIMA LÍNEA------------------------------------------------------------------------
