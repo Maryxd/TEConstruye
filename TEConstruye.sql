@@ -157,18 +157,22 @@ CREATE PROCEDURE USP_Gasto @semana INT, @IDObra INT
 --Stored Procedure que genera un reporte de estado
 CREATE PROCEDURE USP_Reporte_de_Estado @IDObra INT
 	AS
-	declare @presupuesto int
-	Select @presupuesto=SUM(TotalMAT)
-	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
-	WHERE ID_Obra=@IDObra
+	
+	Select Nombre as Etapa,SUM(TotalMAT) as Presupuesto,SUM(Monto) as Real,SUM(TotalMAT)-SUM(Monto) as Diferencia
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo LEFT JOIN Gastos ON Gastos.ID_Etapa=ID/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	WHERE EtapaxObra.ID_Obra=@IDObra
+	Group by Nombre
 
-	SELECT Nombre as Etapa,@presupuesto as Presupuesto,SUM(Monto) as Real,@presupuesto-SUM(Monto) as Diferencia
-	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=ID_Etap
-	Where Gastos.ID_Obra=630
-
-	GROUP BY Nombre
+	SELECT SUM(Diferencia) as Total
+	FROM EtapaXObra INNER JOIN (SELECT ID,SUM(TotalMAT)-SUM(Monto) as Diferencia
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo LEFT JOIN Gastos ON Gastos.ID_Etapa=ID/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	WHERE EtapaxObra.ID_Obra=@IDObra
+	Group by ID ) Tabla ON EtapaXObra.ID=Tabla.ID
+	
 	GO
 
+
+	
 ----------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------BLOQUE DE CREACIÓN DE TRIGGERS---------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -207,8 +211,10 @@ GO
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 EXEC USP_Planilla 1;
-EXEC USP_Presupuesto 630;
+EXEC USP_Presupuesto 226;
 EXEC USP_Reporte_de_Estado 630;
-EXEC USP_Gasto 1,630;
+EXEC USP_Gasto 1,226;
+
+SELECT * FROM Gastos
 
 ----------------------------------------------------------ÚLTIMA LÍNEA------------------------------------------------------------------------
