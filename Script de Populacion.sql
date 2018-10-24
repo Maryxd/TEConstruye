@@ -66,24 +66,14 @@ VALUES
 ('Rodolfo',104578045,25704520),
 ('Andrea',102500999,83185698),
 ('Omar',176520915,89954102)
-INSERT INTO Obra(ID,ID_Cliente,Ubicacion)
-VALUES
-(630,107230078,'Puntarenas')
+
 
 INSERT INTO Obra(ID,ID_Cliente,Ubicacion)
 VALUES
-(658,105430010,'Quepos')
-
-INSERT INTO Obra(ID,ID_Cliente,Ubicacion)
-VALUES
-(547,104578045,'Nandayure')
-
-INSERT INTO Obra(ID,ID_Cliente,Ubicacion)
-VALUES
-(139,102500999,'Aserrí')
-
-INSERT INTO Obra(ID,ID_Cliente,Ubicacion)
-VALUES
+(630,107230078,'Puntarenas'),
+(658,105430010,'Quepos'),
+(547,104578045,'Nandayure'),
+(139,102500999,'Aserrí'),
 (226,176520915,'San Carlos')
 
 INSERT INTO EtapaXObra(ID,ID_Obra,ID_Etapa,Fecha_Inicio,Fecha_Fin)

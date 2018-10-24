@@ -15,7 +15,7 @@ Apellido2 VARCHAR (50) NOT NULL,
 Cedula INT NOT NULL,
 Telefono VARCHAR (50) NOT NULL,
 Pago_Hora INT NOT NULL,
-PRIMARY KEY (PK_Cedula)
+PRIMARY KEY (Cedula)
 )
 
 --Tabla para almacenar los ingenieros y arquitectos
@@ -68,7 +68,7 @@ Fecha_Inicio DATETIME NOT NULL,
 Fecha_Fin DATETIME NOT NULL,
 PRIMARY KEY (ID),
 FOREIGN KEY (ID_Obra) REFERENCES Obra(ID),
-FOREIGN KEY (ID_Etapa) REFERENCES Etapa(IDEtap)
+FOREIGN KEY (ID_Etapa) REFERENCES Etapa(ID_Etap)
 )
 
 --Tabla intermedia entre material y etapa
@@ -116,10 +116,20 @@ GO
 CREATE PROCEDURE USP_Presupuesto  @IDObra INT
 	AS
 	SELECT Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
-	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=PK_ID LEFT JOIN Etapa ON IDEtap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
 	WHERE ID_Obra=@IDObra
 	Group by Nombre, Nombre_Material,Cantidad,Precio,TotalMAT
+
+	SELECT Nombre,SUM(TotalMAT) as "Presupuesto por Etapa"
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	WHERE ID_Obra=@IDObra
+	Group by Nombre
+
+	SELECT SUM(TotalMAT) as "Presupuesto Total"
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	WHERE ID_Obra=@IDObra
 	GO
+	
 
 --Stored Procedure que genera una planilla
 CREATE PROCEDURE USP_Planilla @semana INT
@@ -128,13 +138,18 @@ CREATE PROCEDURE USP_Planilla @semana INT
 	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
 	Where Semana=@semana
 	Group by Nombre, Apellido1, Apellido2, ID, Ubicacion
+
+	SELECT  Nombre, Apellido1, Apellido2, SUM(HorasXSemana*Pago_Hora) as "Total Sueldo"
+	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
+	Where Semana=@semana
+	Group by Nombre, Apellido1, Apellido2
 	GO
 
 --Stored Procedure que genera recuento de gastos
 CREATE PROCEDURE USP_Gasto @semana INT, @IDObra INT
 	AS
 	SELECT Numero_Factura,Lugar,Fecha, Nombre as Etapa, Monto
-	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=PK_ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=IDEtap
+	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=ID_Etap
 	WHERE Semana=@semana AND Gastos.ID_Obra=@IDObra
 	GO
 
@@ -143,11 +158,11 @@ CREATE PROCEDURE USP_Reporte_de_Estado @IDObra INT
 	AS
 	declare @presupuesto int
 	Select @presupuesto=SUM(TotalMAT)
-	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=PK_ID LEFT JOIN Etapa ON IDEtap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
+	FROM MaterialXEtapa LEFT JOIN EtapaXObra ON ID_EtapaxObra=ID LEFT JOIN Etapa ON ID_Etap=ID_Etapa LEFT JOIN Materiales ON ID_Material=Codigo/* (EtapaXObra INNER JOIN (MaterialXEtapa INNER JOIN Materiales ON Codigo=ID_Material) ON ID_Etapa=ID_EtapaxObra)*/ 
 	WHERE ID_Obra=@IDObra
 
 	SELECT Nombre as Etapa,@presupuesto as Presupuesto,SUM(Monto) as Real,@presupuesto-SUM(Monto) as Diferencia
-	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=PK_ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=PK_IDEtap
+	FROM Gastos INNER JOIN EtapaXObra ON Gastos.ID_Etapa=ID LEFT JOIN Etapa ON EtapaXObra.ID_Etapa=ID_Etap
 	Where Gastos.ID_Obra=630
 	GROUP BY Nombre
 	GO
