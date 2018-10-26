@@ -46,6 +46,7 @@ PRIMARY KEY (Codigo)
 --Tabla para almacenar las obras
 CREATE TABLE Obra (
 ID INT NOT NULL,
+Nombre_Obra VARCHAR(50) NOT NULL,
 ID_Cliente VARCHAR (50) NOT NULL,
 Ubicacion VARCHAR (50) NOT NULL,
 PRIMARY KEY (ID),
@@ -135,10 +136,10 @@ CREATE PROCEDURE USP_Presupuesto  @IDObra INT
 --Stored Procedure que genera una planilla
 CREATE PROCEDURE USP_Planilla @semana INT
 	AS
-	SELECT  Nombre, Apellido1, Apellido2, ID as ID_Obra, Ubicacion, SUM(HorasXSemana*Pago_Hora) as Sueldo
+	SELECT  Nombre, Apellido1, Apellido2, ID as ID_Obra, Nombre_Obra, Ubicacion, SUM(HorasXSemana*Pago_Hora) as Sueldo
 	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
 	Where Semana=@semana
-	Group by Nombre, Apellido1, Apellido2, ID, Ubicacion
+	Group by Nombre, Apellido1, Apellido2, ID, Nombre_Obra, Ubicacion
 
 	SELECT  Nombre, Apellido1, Apellido2, SUM(HorasXSemana*Pago_Hora) as "Total Sueldo"
 	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
@@ -222,7 +223,7 @@ GO
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 EXEC USP_Planilla 1;
-EXEC USP_Presupuesto 226;
+EXEC USP_Presupuesto 630;
 EXEC USP_Reporte_de_Estado 630;
 EXEC USP_Gasto 1,226;
 EXEC USP_InfoIngenieros 12345678;
