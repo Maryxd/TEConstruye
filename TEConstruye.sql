@@ -87,6 +87,7 @@ FOREIGN KEY (ID_EtapaxObra) REFERENCES EtapaXObra(ID)
 
 --Tabla para relacionar a los empleados con las obras
 CREATE TABLE WORKS_ON(
+ID_WORKS_ON int identity(1,1),
 ID_Empleado INT NOT NULL,
 ID_Obra INT NOT NULL,
 HorasXSemana FLOAT NOT NULL,
@@ -98,6 +99,8 @@ FOREIGN KEY (ID_Obra) REFERENCES Obra(ID)
 --Tabla para recopilar los gastos de una obra
 CREATE TABLE Gastos(
 Numero_Factura INT NOT NULL,
+ID_Gastos int identity(1,1),
+PRIMARY KEY (ID_Gastos),
 ID_Obra INT NOT NULL,
 ID_Etapa INT NOT NULL,
 Lugar VARCHAR(50) NOT NULL,
