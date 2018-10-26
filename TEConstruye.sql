@@ -172,48 +172,60 @@ CREATE PROCEDURE USP_Reporte_de_Estado @IDObra INT
 	GO
 
 
-	
+	--Stored Procedure que despliega la información de ingenieros
+CREATE PROCEDURE USP_InfoIngenieros  @id_ing INT
+	AS
+	SELECT Nombre, Cedula, Especialidad,Codigo
+	FROM Ingenieros LEFT JOIN Empleados ON ID_Empleado=Cedula
+	WHERE Cedula=@id_ing
+ Group by Nombre, Cedula, Especialidad,Codigo
+ GO
 ----------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------BLOQUE DE CREACIÓN DE TRIGGERS---------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------
-
+GO
 --Trigger que evita que se realicen reducciones en los salarios
 CREATE TRIGGER TR_EvitarReduccionSalario ON Empleados
-FOR UPDATE 
-AS
-	IF UPDATE(Pago_Hora) 
-	BEGIN
-		DECLARE @pago_Anterior int
-		DECLARE @pago_Nuevo int
-		SELECT @pago_Anterior = Pago_Hora FROM deleted
-		SELECT @pago_Nuevo = Pago_Hora FROM inserted
-		IF (@pago_Nuevo < @pago_Anterior)
-		RAISERROR(15600,-1,-1,'Cambio no autorizado: los pagos no pueden ser reducidos')
-		ROLLBACK
-	END
+AFTER UPDATE 
+AS 
+BEGIN
+ DECLARE @pago_Anterior int
+ DECLARE @pago_Nuevo int
+ SELECT @pago_Anterior = Pago_Hora FROM deleted
+ SELECT @pago_Nuevo = Pago_Hora FROM inserted
+ IF (@pago_Nuevo < @pago_Anterior)
+ BEGIN
+  RAISERROR('Cambio no autorizado: los pagos no pueden ser reducidos',15,0)
+  ROLLBACK
+ END
+END
 GO
 
---Trigger que evita que se reporte un material cuyo costo sea cero
-CREATE TRIGGER TR_VerificarPrecioMaterial ON Materiales
-FOR UPDATE 
-AS
-	IF UPDATE(PrecioUnitario) 
-	BEGIN
-		DECLARE @precio_Anterior int
-		DECLARE @precio_Nuevo int
-		SELECT @precio_Anterior = PrecioUnitario FROM deleted
-		SELECT @precio_Nuevo = PrecioUnitario FROM inserted
-		IF (@precio_Nuevo = 0)
-		RAISERROR(15600,-1,-1,'Cambio no autorizado: los materiales deben tener un precio')
-		ROLLBACK
-	END
+--Trigger que evita que se introduzcan materiales sin precio
+CREATE TRIGGER TR_EvitarMaterialSinPrecio ON Materiales
+AFTER UPDATE 
+AS 
+BEGIN
+ DECLARE @precio_Anterior int
+ DECLARE @precio_Nuevo int
+ SELECT @precio_Anterior = PrecioUnitario FROM deleted
+ SELECT @precio_Nuevo = PrecioUnitario FROM inserted
+ IF (@precio_Nuevo <= 0)
+ BEGIN
+  RAISERROR('Cambio no autorizado: los materiales deben tener un precio registrado',15,0)
+  ROLLBACK
+ END
+END
 GO
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 EXEC USP_Planilla 1;
 EXEC USP_Presupuesto 226;
 EXEC USP_Reporte_de_Estado 630;
 EXEC USP_Gasto 1,226;
+EXEC USP_InfoIngenieros 12345678;
 
 SELECT * FROM Gastos
 
