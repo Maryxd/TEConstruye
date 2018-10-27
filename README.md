@@ -2,7 +2,7 @@
 
 Integrantes:
 
-    	      Marycruz Céspedes Lobo
+    	     Marycruz Céspedes Lobo
             Luis Martínez Ramírez
             Leonardo Pérez Díaz
             Steven Vega Zúñiga
