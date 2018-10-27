@@ -232,19 +232,43 @@ VALUES
 (15,77756777,27,9,4331)
 
 
-Insert into WORKS_ON
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
 VALUES
-(12345678,630,50,1),
-(333567424,658,40,1),
-(465780512,547,28,1),
-(104567845,139,18,1),
-(574156911,226,27,1),
-(457896254,630,36,1),
-(452368974,139,55,1),
-(104567845,547,18,1),
-(698752143,658,27,1),
-(800789246,226,36,1),
+(12345678,630,50,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(333567424,658,40,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(465780512,547,28,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(104567845,139,18,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(574156911,226,27,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(457896254,630,36,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(452368974,139,55,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(104567845,547,18,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(698752143,658,27,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
+(800789246,226,36,1)
+Insert into WORKS_ON(ID_Empleado,ID_Obra,HorasXSemana,Semana)
+VALUES
 (698752143,139,55,1)
+
+Insert into WORKS_ON(ID_Empleado,ID_Obra,PagoxHORA,HorasXSemana,Semana)
+VALUES
+(698752143,139,6000,55,2)
 
 INSERT INTO Gastos
 VALUES
