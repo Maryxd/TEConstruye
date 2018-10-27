@@ -90,6 +90,7 @@ CREATE TABLE WORKS_ON(
 ID_WORKS_ON int identity(1,1),
 ID_Empleado INT NOT NULL,
 ID_Obra INT NOT NULL,
+PagoxHORA INT,
 HorasXSemana FLOAT NOT NULL,
 Semana INT NOT NULL,
 FOREIGN KEY (ID_Empleado) REFERENCES Empleados(Cedula),
@@ -139,12 +140,12 @@ CREATE PROCEDURE USP_Presupuesto  @IDObra INT
 --Stored Procedure que genera una planilla
 CREATE PROCEDURE USP_Planilla @semana INT
 	AS
-	SELECT  Nombre, Apellido1, Apellido2, ID as ID_Obra, Nombre_Obra, Ubicacion, SUM(HorasXSemana*Pago_Hora) as Sueldo
+	SELECT  Nombre, Apellido1, Apellido2, ID as ID_Obra, Nombre_Obra, Ubicacion, SUM(HorasXSemana*PagoxHORA) as Sueldo
 	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
 	Where Semana=@semana
 	Group by Nombre, Apellido1, Apellido2, ID, Nombre_Obra, Ubicacion
 
-	SELECT  Nombre, Apellido1, Apellido2, SUM(HorasXSemana*Pago_Hora) as "Total Sueldo"
+	SELECT  Nombre, Apellido1, Apellido2, SUM(HorasXSemana*PagoxHORA) as "Total Sueldo"
 	FROM WORKS_ON INNER JOIN Obra ON ID_Obra=ID LEFT JOIN Empleados ON ID_Empleado=Cedula
 	Where Semana=@semana
 	Group by Nombre, Apellido1, Apellido2
@@ -222,7 +223,24 @@ BEGIN
 END
 GO
 
+--Trigger que modifica el pago de un empleado en WORKS_ON, si se inserta un nulo, entonces se toma el salario que tiene registrado en la tabla "Empleados"
 
+CREATE TRIGGER TR_ModificarPAGO ON WORKS_ON
+AFTER INSERT
+AS
+DECLARE @pago INT;
+DECLARE @ID INT
+SELECT @pago=PagoxHORA FROM inserted
+SELECT @ID=ID_Empleado FROM inserted
+BEGIN
+if(@pago IS NULL)
+	BEGIN
+	UPDATE WORKS_ON
+	SET PagoxHORA = (SELECT Pago_Hora FROM Empleados WHERE Cedula=@ID )
+	WHERE ID_Empleado=@ID
+	END
+END
+GO
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 EXEC USP_Planilla 1;
